@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 
 // ✅ Main chat endpoint
 app.post('/chat', async (req, res) => {
+  console.log('📨 Incoming request body:', req.body);
   const userMessage = req.body.message;
   console.log('📨 Incoming user message:', userMessage);
 
