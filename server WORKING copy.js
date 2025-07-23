@@ -5,7 +5,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // ✅ Ensure API key is present
 if (!process.env.OPENROUTER_API_KEY) {
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use('/chat', express.static(path.join(__dirname, 'public')));
 
 // ✅ Handle OPTIONS preflight
-app.options('*', cors());
+app.options('/chat', cors());
 
 // ✅ Optional root route
 app.get('/', (req, res) => {
@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 
 // ✅ Main chat endpoint
 app.post('/chat', async (req, res) => {
+  console.log('📨 Incoming request body:', req.body);
   const userMessage = req.body.message;
   console.log('📨 Incoming user message:', userMessage);
 
@@ -74,5 +75,5 @@ app.post('/chat', async (req, res) => {
 
 // ✅ Start the backend server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
