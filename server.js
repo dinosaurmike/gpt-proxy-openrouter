@@ -27,7 +27,7 @@ app.use(express.json());
 app.use('/chat', express.static(path.join(__dirname, 'public')));
 
 // ✅ Handle OPTIONS preflight
-app.options('*', cors());
+app.options('/chat', cors());
 
 // ✅ Optional root route
 app.get('/', (req, res) => {
